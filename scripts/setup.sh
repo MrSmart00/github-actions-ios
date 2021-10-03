@@ -11,7 +11,9 @@ else
   echo "  + Mint found."
 fi
 
-# if [ ! $(which sourcery) ]; then
+mint bootstrap
+
+# if [ ! $(mint which xcodegen) ]; then
 #   echo "  + Installing Sourcery..."
 #   brew install sourcery
 # else
@@ -40,9 +42,9 @@ else
   echo "  + Bundler found."
 fi
 
-# # Gem
-# echo "  + Installing gems."
-# bundle install --path=vendor/bundle
+# Gem
+echo "  + Installing gems."
+bundle install --path=vendor/bundle
 
 # cp .Rambafile Rambafile
 # bundle exec generamba template install
