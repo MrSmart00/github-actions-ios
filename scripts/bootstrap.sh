@@ -5,7 +5,7 @@ set -eu
 # bootstrap
 
 echo "  + Generate xcodeproje by XcodeGen."
-xcodegen
+mint run xcodegen
 bundle exec pod install
 
 echo ""
