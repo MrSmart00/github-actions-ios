@@ -25,8 +25,6 @@ targets:
         CURRENT_PROJECT_VERSION: 1
         PRODUCT_BUNDLE_IDENTIFIER: "com.exam.github-actions-ios"
         GENERATE_INFOPLIST_FILE: true
-        INFOPLIST_KEY_UISupportedInterfaceOrientations:
-          - UIInterfaceOrientationPortrait
     dependencies:
       - package: Firebase
         product: FirebaseCrashlytics
