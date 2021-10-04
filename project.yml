@@ -37,6 +37,9 @@ targets:
           else
             echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
           fi
+      - name: "[Firebase] Copy Info.plist"
+        script: |
+          cp "${PROJECT_DIR}/Configurations/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
     postbuildScripts:
       - name: "[Crashlytics] Run Script"
         script: |
