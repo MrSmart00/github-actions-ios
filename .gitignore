@@ -92,4 +92,8 @@ iOSInjectionProject/
 .bundle/
 vendor/
 
+# Xcodegen
+.xcodegen/
+
+# GoogleServices
 */GoogleService-Info*.plist
