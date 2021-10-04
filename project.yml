@@ -1,0 +1,57 @@
+name: github-actions-ios
+options:
+  minimumXcodeGenVersion: "2.6.0"
+  bundleIdPrefix: "com.sample"
+  deploymentTarget:
+    iOS: "14.0"
+configs:
+  Debug: debug
+  Release: release
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    from: 8.0.0
+targets:
+  App:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: "1"
+        SWIFT_VERSION: "5.5"
+        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_VERSION: 1
+        PRODUCT_BUNDLE_IDENTIFIER: "com.exam.github-actions-ios"
+        GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_KEY_UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    dependencies:
+      - package: Firebase
+        product: FirebaseCrashlytics
+    preBuildScripts:
+      - name: "[SwiftLint] Run Script"
+        script: |
+          if test $(mint which swiftlint); then
+            mint run swiftlint autocorrect
+            mint run swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+    postbuildScripts:
+      - name: "[Crashlytics] Run Script"
+        script: |
+          ${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run
+        inputFiles:
+          - $(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)
+    scheme:
+      testTargets:
+        - AppTests
+  AppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AppTests
+    dependencies:
+      - target: App
