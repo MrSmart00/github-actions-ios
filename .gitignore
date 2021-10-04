@@ -91,3 +91,5 @@ iOSInjectionProject/
 # Bundler
 .bundle/
 vendor/
+
+*/GoogleService-Info*.plist
