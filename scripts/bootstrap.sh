@@ -5,8 +5,8 @@ set -eu
 # bootstrap
 
 echo "  + Generate xcodeproje by XcodeGen."
-mint run xcodegen generate --use-cache --cache-path .xcodegen/cache
-bundle exec pod install
+mint run xcodegen generate
+bundle exec fastlane cocoapods_install
 
 echo ""
 echo "********************************************************"
