@@ -54,9 +54,9 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
       run: |
-        sh echo "$GOOGLE_SERVICE_INFO_PLIST" > encoded.dat
-        sh base64 -d encoded.dat > GoogleService-Info.plist
-        sh mv GoogleService-Info.plist Configurations
+        echo "$GOOGLE_SERVICE_INFO_PLIST" > encoded.dat
+        base64 -d encoded.dat > GoogleService-Info.plist
+        mv GoogleService-Info.plist Configurations
 
     - name: Run test
       run: |
