@@ -55,3 +55,16 @@ jobs:
     - name: Run test
       run: bundle exec fastlane test
 
+    - name: Output Code coverage
+      run: bundle exec slather coverage --html --output-directory html_report
+
+    - name: Store Test Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: build/reports
+
+    - uses: actions/upload-artifact@v2
+          with:
+            name: test-coverage
+            path: html_report
