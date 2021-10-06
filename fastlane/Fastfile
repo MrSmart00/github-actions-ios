@@ -22,4 +22,15 @@ platform :ios do
       try_repo_update_on_error: true
     )
   end
+
+  lane :test do
+    run_tests(
+      workspace: "github-actions-ios.xcworkspace",
+      scheme: "App",
+      clean: true,
+      code_coverage: true,
+      cloned_source_packages_path: "SourcePackages"
+    )
+  end
+
 end

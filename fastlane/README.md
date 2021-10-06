@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios cocoapods_install
 ```
 
+### ios test
+```
+fastlane ios test
+```
+
 
 ----
 

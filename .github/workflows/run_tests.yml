@@ -13,10 +13,13 @@ on:
 jobs:
   build:
     runs-on: macos-11
+    env:
+      MINT_PATH: mint/lib
+      MINT_LINK_PATH: mint/bin
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Select Xcode version
       run: sudo xcode-select -s '/Applications/Xcode_13.0.app/Contents/Developer'
 
@@ -27,6 +30,14 @@ jobs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
+
+    - name: Cache Mint packages
+      uses: actions/cache@v2
+      with:
+        path: mint
+        key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+        restore-keys: |
+          ${{ runner.os }}-mint-
 
     - name: Cache libraries via SwiftPM
       uses: actions/cache@v2
@@ -40,4 +51,7 @@ jobs:
       run: |
         ./scripts/setup.sh
         ./scripts/bootstrap.sh
+
+    - name: Run test
+      run: bundle exec fastlane test
 
