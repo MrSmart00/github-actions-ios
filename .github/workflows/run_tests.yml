@@ -49,14 +49,21 @@ jobs:
     
     - name: Configure Project
       run: |
-        ./scripts/setup.sh
-        ./scripts/bootstrap.sh
+        sh ./scripts/setup.sh
+        sh ./scripts/bootstrap.sh
+
+    - name: Decode GoogleService-Info.plist
+      env:
+        GOOGLE_SERVICE_INFO_PLIST: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}
+      run: |
+        sh echo "$GOOGLE_SERVICE_INFO_PLIST" > encoded.dat
+        sh base64 -d encoded.dat > GoogleService-Info.plist
+        sh mv GoogleService-Info.plist Configurations
 
     - name: Run test
-      run: bundle exec fastlane test
-
-    - name: Output Code coverage
-      run: bundle exec slather coverage --html --output-directory html_report
+      run: |
+        bundle exec fastlane test
+        bundle exec slather coverage --html --output-directory html_report
 
     - name: Store Test Report
       uses: actions/upload-artifact@v2
@@ -64,7 +71,8 @@ jobs:
         name: test-results
         path: build/reports
 
-    - uses: actions/upload-artifact@v2
-          with:
-            name: test-coverage
-            path: html_report
+    - name: Store Code Coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage
+        path: html_report
