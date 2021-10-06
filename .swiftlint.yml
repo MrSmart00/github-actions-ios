@@ -4,6 +4,7 @@ excluded:
   - vendor
   - scripts
   - Templates
+  - SourcePackages
   - fastlane
 
 line_length:
