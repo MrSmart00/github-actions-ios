@@ -8,6 +8,7 @@ on:
 
 jobs:
   world:
+    if: contains(fromJSON(steps.labels.outputs.json), 'iOS')
     runs-on: ubuntu-latest
     steps:
       - run: echo "World"
